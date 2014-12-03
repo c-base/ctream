@@ -1,0 +1,25 @@
+{
+    "name": "c-base/ctream",
+    "description": "space station data ctream",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dazz",
+            "email": "dazz@c-base.org"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "silex/silex": "~2.0",
+        "symfony/console": "~3.0@dev",
+        "sskaje/mqtt": "dev-master"
+    },
+  "autoload": {
+    "psr-4": {
+      "CBase\\Ctream\\": "src/"
+    },
+    "classmap": [
+      "vendor/sskaje/mqtt"
+    ]
+  }
+}
