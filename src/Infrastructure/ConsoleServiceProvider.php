@@ -66,7 +66,7 @@ class ConsoleServiceProvider implements ServiceProviderInterface
                         );
                     };
 
-                    $container['mqtt.subscribe']('all');
+                    $container['mqtt.subscribe'](MQTTServiceProvider::SUBSCRIBE_TOPIC_ALL);
                 }
             );
     }
