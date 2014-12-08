@@ -33,7 +33,7 @@ namespace CBase\Ctream\Application;
  */
 class Application extends \Silex\Application
 {
-    const ENV_PRODUCTION = 'production';
+    const ENV_PRODUCTION = 'prod';
     const ENV_DEVELOPMENT = 'dev';
 
     /**
