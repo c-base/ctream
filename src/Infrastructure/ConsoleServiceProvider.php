@@ -33,6 +33,7 @@ use CBase\Ctream\Application\Console;
 use Symfony\Component\Console\Helper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class ConsoleServiceProvider
@@ -61,12 +62,30 @@ class ConsoleServiceProvider implements ServiceProviderInterface
                 function (InputInterface $input, OutputInterface $output) use ($container)  {
 
                     $container['mqtt.subscribe.callback'] = function ($mqtt, $topic, $message) use ($output) {
-                        $output->writeln(
-                            sprintf('{"command": "%s", "payload": %s}', $topic, $message)
-                        );
+                        $command = sprintf('./console event:store %s %s', $topic, $message);
+                        exec($command, $execOutput);
+                        $output->writeln($execOutput[0]);
                     };
 
                     $container['mqtt.subscribe'](MQTTServiceProvider::SUBSCRIBE_TOPIC_ALL);
+                }
+            );
+
+        $container['console']
+            ->register('event:store')
+            ->setDefinition([
+                    new InputArgument('event', InputArgument::REQUIRED, 'Event name'),
+                    new InputArgument('payload', InputArgument::OPTIONAL, 'Event data'),
+                ])
+            ->setDescription('subscribes to the mqtt')
+            ->setCode(
+                function (InputInterface $input, OutputInterface $output) use ($container)  {
+                    $event = $input->getArgument('event');
+                    $payload = $input->getArgument('payload');
+                    $output->writeln(
+                        sprintf('{"event": "%s", "payload": %s}', $event, $payload)
+                    );
+                    // TODO: persist
                 }
             );
     }
