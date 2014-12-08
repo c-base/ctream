@@ -33,6 +33,9 @@ namespace CBase\Ctream\Application;
  */
 class Application extends \Silex\Application
 {
+    const ENV_PRODUCTION = 'production';
+    const ENV_DEVELOPMENT = 'dev';
+
     /**
      * @return mixed
      * @throws \UnexpectedValueException
@@ -56,5 +59,13 @@ class Application extends \Silex\Application
     public function getLogDir()
     {
         return sprintf('%s/%s', $this->getRootDir(), 'var/log');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProduction()
+    {
+        return $this['app.environment'] === self::ENV_PRODUCTION;
     }
 }

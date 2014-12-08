@@ -3,7 +3,8 @@ date_default_timezone_set('UTC');
 
 \Symfony\Component\Debug\Debug::enable();
 
-$environment = $environment ?:'dev';
+$environment = getenv('ENVIRONMENT');
+$environment = $environment ?:\CBase\Ctream\Application\Application::ENV_DEVELOPMENT;
 
 $app = new \CBase\Ctream\Application\Application(
     [
