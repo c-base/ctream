@@ -5,13 +5,18 @@
 //umask(0000);
 set_time_limit(0);
 
-$loader = require_once __DIR__.'/vendor/autoload.php';
+$loader = require_once __DIR__ . '/vendor/autoload.php';
 
 if (!isset($environment)) {
     $environment = 'dev';
 }
 
-$app = require __DIR__ . '/bootstrap.php';
-$app->boot();
+try {
+    $app = require __DIR__ . '/bootstrap.php';
+    $app->boot();
 
-$app['console']->run();
+    $app['console']->run();
+} catch (Exception $e) {
+    printf("ERROR: %s\n", get_class($e));
+    printf("   %s\n", $e->getMessage());
+}
