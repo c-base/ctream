@@ -63,7 +63,7 @@ class MQTTServiceProvider implements ServiceProviderInterface
 
         $container['mqtt.subscribe'] = $container->protect(
             function ($topic) use ($container) {
-                /** @var \phpMQTT $mqtt */
+                /** @var \spMQTT $mqtt */
                 $mqtt = $container['mqtt.client'];
                 $mqtt->setKeepalive(3600);
                 $connected = $mqtt->connect();
